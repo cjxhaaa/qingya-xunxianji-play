@@ -682,8 +682,12 @@ ${t.join(`
 陈木匠跪在地上直磕头。他闺女阿秀缩在灶台后头，攥着一把劈柴的斧子，手抖得厉害。领头的汉子腰上挂着如意赌坊的木牌。围着的人没一个敢出声。`,options:[{label:"上前拦住",battle:{enemy:"dashou"},ok:e=>(se(e,"yz_saved"),ve(e,"chenmujiang",10),ve(e,"axiu",10),`打手捂着胳膊退到门外，撂下一句：「侯掌柜的账，没人赖得掉！」
 陈木匠说，去年冬天婆娘病重，他去如意坊借了十两。镇上被这么逼的不止他一家。`),fail:e=>(se(e,"yz_tried"),ve(e,"chenmujiang",5),`你被掀翻在门槛上。领头的打手还要上前，回头看了一眼门外越围越多的人，啐了一口：「多管闲事。今天人多，算你们走运。这丫头，我们改天来领。」
 两个人把借据揣回怀里，推开人群走了。陈木匠扶你起来，说去年冬天婆娘病重，他去如意坊借了十两。镇上被这么逼的不止他一家。`)},{label:"替他把八十两还上",cost:0,need:e=>e.money>=80,needText:"银两不够八十两",run:e=>(Ye(e,-80),se(e,"yz_paid80"),ve(e,"chenmujiang",12),ve(e,"axiu",8),`领头的打手掂了掂银子，咧嘴一笑：「还是这位爽快。」借据却揣回了怀里——「利钱下个月接着算。」
-陈木匠急得直跺脚：如意坊的高利贷，从来就没有还清的那一天。`)},{label:"走开",cost:0,run:()=>"你转身出了门。身后，陈木匠还在一下一下地磕头。"}]},{id:"a2_yz_report",outing:"town",loc:"xunjiansi",npc:"lizheng",title:"去衙门告状",cost:0,from:0,to:3,priority:13,when:e=>SP(e,"a2_yz_cry")&&!e.flags.yz_lead&&!B0(e),text:`衙门的大堂里，胡巡检捧着茶碗听你说完，慢悠悠吹开茶沫：「借据上按了手印，你情我愿的买卖，官府管不着。」说罢起身送客。
-出了门，冯捕头在廊下拦住你，压着嗓子：「胡巡检每月从如意坊拿一份孝敬，你告不动。要扳倒侯掌柜，得拿到他出千放贷的实据。他的账本锁在里屋。」`,options:[{label:"那我去如意坊会会他",run:e=>(se(e,"yz_lead"),ve(e,"fengbutou",5),"冯捕头四下看了一眼：「侯掌柜那人，只认赢了大钱的客人。你千万留神。」")},{label:"「我认识个手快的。」",show:e=>!!e.flags.know_thief,run:e=>(se(e,"yz_lead"),se(e,"yz_shun_hint"),ve(e,"fengbutou",5),`@ 冯捕头看了你一眼，把脸转向街上。
+陈木匠急得直跺脚：如意坊的高利贷，从来就没有还清的那一天。`)},{label:"走开",cost:0,run:()=>"你转身出了门。身后，陈木匠还在一下一下地磕头。"}]},{id:"a2_yz_report",outing:"town",loc:"xunjiansi",npc:"lizheng",title:"去衙门告状",cost:0,from:0,to:3,priority:13,when:e=>SP(e,"a2_yz_cry")&&!e.flags.yz_lead&&!B0(e),text:`@ 衙门的大堂里，胡巡检捧着茶碗听你说完，慢悠悠吹开茶沫。
+@胡守仁 「借据上按了手印，你情我愿的买卖，官府管不着。」
+@ 说罢起身送客。`,options:[{label:"出门",run:()=>"",next:"a2_yz_report2"}]},{id:"a2_yz_report2",outing:"town",loc:"xunjiansi",npc:"fengbutou",title:"去衙门告状",cost:0,from:0,to:13,when:()=>!1,text:`@ 出了门，冯捕头在廊下拦住你，压着嗓子。
+@冯捕头 「胡巡检每月从如意坊拿一份孝敬，你告不动。」
+@冯捕头 「要扳倒侯掌柜，得拿到他出千放贷的实据。他的账本锁在里屋。」`,options:[{label:"那我去如意坊会会他",run:e=>(se(e,"yz_lead"),ve(e,"fengbutou",5),`@ 冯捕头四下看了一眼。
+@冯捕头 「侯掌柜那人，只认赢了大钱的客人。你千万留神。」`)},{label:"「我认识个手快的。」",show:e=>!!e.flags.know_thief,run:e=>(se(e,"yz_lead"),se(e,"yz_shun_hint"),ve(e,"fengbutou",5),`@ 冯捕头看了你一眼，把脸转向街上。
 @冯捕头 「这话我没听见。」
 @冯捕头 「侯掌柜那人精得很，你千万留神。」`)}]},{id:"a2_yz_shun",outing:"town",loc:"jishi",npc:"xiaoshunzi",title:"如意坊的账本",cost:0,from:0,to:5,priority:13,when:e=>!!e.flags.yz_shun_hint&&!e.flags.yz_shun&&!e.flags.yz_ledger&&!e.flags.yz_caught&&!e.flags.yz_bribe&&!B0(e),text:e=>`@ 小顺子蹲在集市边的石阶上嗑瓜子，看见你过来，屁股往后挪了挪。
 @小顺子 「${e.flags.purse_back?"钱袋都叫你摸回去了，还找我做什么？":"钱袋？什么钱袋，我可没见过。"}」`,options:[{label:"「如意坊侯掌柜的账本，你知道搁在哪儿吗？」",run:()=>"",next:"a2_yz_shun2"},ke]},{id:"a2_yz_shun2",outing:"town",loc:"jishi",npc:"xiaoshunzi",where:"here",title:"如意坊的账本",cost:0,from:0,to:13,when:()=>!1,text:`@ 小顺子把瓜子皮一吐，四下看了一眼，压低了嗓子。
